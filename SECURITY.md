@@ -4,20 +4,17 @@
 
 As of January 2026, this plugin has the following security vulnerabilities in its dependencies:
 
-### Critical (1)
-- **dompurify** (<=3.2.3): Prototype pollution and XSS vulnerabilities
-  - Affects: @logseq/libs dependency
-  - Advisory: GHSA-mmhx-hmjr-r674, GHSA-vhxf-7vqr-mrjg, GHSA-p3vf-v8qc-cwcr, GHSA-gx9m-whjm-85jf
+### Fixed Vulnerabilities (via Dependabot updates)
+- **✅ dompurify** (critical): Updated from 2.3.8 to 3.3.1
+- **✅ esbuild** (high): Updated from 0.18.20 to 0.27.2
+- **✅ vite** (moderate): Updated from 4.5.14 to 7.3.1
 
-### High (1)
-- **esbuild** (<=0.24.2): Development server security issue
-  - Affects: vite dependency
-  - Advisory: GHSA-67mh-4wv8-2f99
-
-### Moderate (3)
+### Remaining Vulnerabilities
+#### Moderate (2)
 - **lodash-es** (4.0.0 - 4.17.22): Prototype pollution
   - Affects: @logseq/libs dependency
   - Advisory: GHSA-xxjr-mmjv-4gpg
+  - Status: No fix available in current @logseq/libs version
 
 ## Risk Assessment
 
@@ -47,9 +44,15 @@ As of January 2026, this plugin has the following security vulnerabilities in it
 
 ## Update Status
 
-### Current Dependencies
-- `@logseq/libs`: 0.0.15 (latest compatible with Logseq v0.9.x)
-- `vite`: 4.5.14 (compatible with current build system)
+### Current Dependencies (Updated via Dependabot)
+- `@logseq/libs`: 0.2.12 (updated from 0.0.15)
+- `vite`: 7.3.1 (updated from 4.5.14)
+
+### Security Improvements
+- **Critical vulnerabilities fixed**: 1 (dompurify)
+- **High vulnerabilities fixed**: 1 (esbuild)  
+- **Moderate vulnerabilities fixed**: 1 (vite)
+- **Remaining vulnerabilities**: 2 moderate (lodash-es in @logseq/libs)
 
 ### Update Constraints
 - **Logseq Compatibility**: Must maintain compatibility with Logseq v0.9.x
