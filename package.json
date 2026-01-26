@@ -1,0 +1,37 @@
+{
+  "name": "logseq-zettel",
+  "version": "0.1.0",
+  "description": "Zettelkasten plugin for Logseq with rapid capture templates and daily journal integration",
+  "main": "dist/index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "logseq",
+    "zettelkasten",
+    "notes",
+    "knowledge",
+    "templates",
+    "productivity"
+  ],
+  "author": "Logseq Zettel Plugin",
+  "license": "MIT",
+  "logseq": {
+    "id": "logseq_zettel",
+    "title": "Zettelkasten",
+    "icon": "./icons/icon.png",
+    "description": "Zettelkasten note-taking system with rapid capture templates and daily journal integration",
+    "author": "Logseq Zettel Plugin",
+    "repo": "",
+    "theme": false,
+    "sponsors": []
+  },
+  "devDependencies": {
+    "@logseq/libs": "^0.0.15",
+    "vite": "^4.0.0"
+  },
+  "dependencies": {}
+}

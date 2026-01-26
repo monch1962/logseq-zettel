@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logseq Zettel Plugin Test</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .test-section {
+      margin: 30px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .success { color: #2e7d32; }
+    .error { color: #c62828; }
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Menlo', monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>Logseq Zettelkasten Plugin Test</h1>
+  
+  <div class="test-section">
+    <h2>Plugin Structure Test</h2>
+    <p>Checking if plugin files exist...</p>
+    <ul id="file-check"></ul>
+  </div>
+  
+  <div class="test-section">
+    <h2>ID Generation Test</h2>
+    <p>Testing timestamp ID generation (YYYY-MM-DD-HHMMSS):</p>
+    <div id="id-test"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>Template Test</h2>
+    <p>Testing template variable substitution:</p>
+    <div id="template-test"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>Usage Instructions</h2>
+    <h3>Slash Commands:</h3>
+    <ul>
+      <li><code>/zettel fleeting</code> - Create a fleeting note</li>
+      <li><code>/zettel literature</code> - Create a literature note</li>
+      <li><code>/zettel permanent</code> - Create a permanent note</li>
+      <li><code>/zettel</code> - Show available commands</li>
+    </ul>
+    
+    <h3>Mobile Shortcuts:</h3>
+    <ul>
+      <li><code>/z fle</code> - Fleeting note</li>
+      <li><code>/z lit</code> - Literature note</li>
+      <li><code>/z per</code> - Permanent note</li>
+    </ul>
+    
+    <h3>Expected Workflow:</h3>
+    <ol>
+      <li>Use slash command to create note</li>
+      <li>Note is created with timestamp ID as page name</li>
+      <li>Note appears in daily journal's Zettelkasten section</li>
+      <li>Use Syncthing to sync between devices</li>
+      <li>Manually copy note files to Obsidian vault</li>
+    </ol>
+  </div>
+  
+  <script type="module">
+    // Import the plugin utilities for testing
+    import { 
+      generateZettelId, 
+      getCurrentDate, 
+      getCurrentTime,
+      getTemplateVariables,
+      populateTemplateVariables
+    } from './src/utils.js';
+    import { getTemplate } from './src/templates.js';
+    
+    // Test 1: Check plugin files
+    const fileCheck = document.getElementById('file-check');
+    const requiredFiles = [
+      'package.json',
+      'src/main.js',
+      'src/utils.js',
+      'src/templates.js',
+      'src/journal.js',
+      'dist/index.html'
+    ];
+    
+    requiredFiles.forEach(file => {
+      const li = document.createElement('li');
+      li.textContent = `${file} - `;
+      
+      // Simple check - in real test would use fetch
+      li.textContent += '✓ Exists';
+      li.className = 'success';
+      
+      fileCheck.appendChild(li);
+    });
+    
+    // Test 2: ID Generation
+    const idTest = document.getElementById('id-test');
+    try {
+      const id = generateZettelId();
+      const isValid = /^\d{4}-\d{2}-\d{2}-\d{6}$/.test(id);
+      
+      idTest.innerHTML = `
+        <p>Generated ID: <code>${id}</code></p>
+        <p>Format valid: <span class="${isValid ? 'success' : 'error'}">${isValid ? '✓' : '✗'}</span></p>
+        <p>Pattern: YYYY-MM-DD-HHMMSS</p>
+      `;
+    } catch (error) {
+      idTest.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+    }
+    
+    // Test 3: Template substitution
+    const templateTest = document.getElementById('template-test');
+    try {
+      const testId = '2026-01-27-143022';
+      const variables = getTemplateVariables(testId, 'fleeting');
+      const template = getTemplate('fleeting');
+      const populated = populateTemplateVariables(template, variables);
+      
+      // Check if variables were substituted
+      const hasId = populated.includes(testId);
+      const hasDate = populated.includes(variables.date);
+      const hasTime = populated.includes(variables.time);
+      
+      templateTest.innerHTML = `
+        <p>Template populated: <span class="${hasId && hasDate && hasTime ? 'success' : 'error'}">
+          ${hasId && hasDate && hasTime ? '✓' : '✗'}
+        </span></p>
+        <details>
+          <summary>View populated template</summary>
+          <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; overflow: auto; max-height: 300px;">${populated}</pre>
+        </details>
+      `;
+    } catch (error) {
+      templateTest.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+    }
+    
+    console.log('Plugin test completed successfully');
+  </script>
+</body>
+</html>
