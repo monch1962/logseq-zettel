@@ -1,8 +1,8 @@
-# Template Guide - Logseq Zettelkasten Plugin
+# Template Guide - Logseq Zettelkasten Templates
 
 ## Overview
 
-The plugin provides three default Zettelkasten templates that can be modified to suit your workflow. Templates are stored as regular Logseq pages and use variable substitution for dynamic content.
+This template system provides three mobile-first Zettelkasten templates that work without plugins. Templates use Logseq's native template variables and query-based integration for automatic journal listing.
 
 ## Default Templates
 
@@ -10,91 +10,87 @@ The plugin provides three default Zettelkasten templates that can be modified to
 **Purpose**: Quick capture of immediate thoughts
 
 ```markdown
-id:: {{id}}
+# {{today}}-{{time}} - Quick Thought
+
+id:: {{today}}-{{time}}
 type:: fleeting
-created:: {{timestamp}}
-context:: {{context}}
-status:: draft
-tags:: #zettel #fleeting
 
-# {{id}} - Fleeting Note
+**Captured**: {{today}} {{time}} • 📱 Mobile
+**Context**: {{select: quick-capture | reading | meeting | walking | research | idea | project | personal}}
 
-**Context**: {{context}}
-**Captured**: {{date}} {{time}}
-**Device**: {{capture-device}}
+## Thought
+[Enter your quick thought here]
 
-## Quick Thought
-{{content}}
-
-## To Develop
+## To Process Later
 - [ ] Expand into permanent note
 - [ ] Find connections
-- [ ] Add references
+- [ ] Add context
 
-## Raw Capture
-{{raw-thought}}
+<!-- Desktop sections below -->
+**Status**: draft  
+**Tags**: #zettel #fleeting #mobile-capture
+**Created**: {{today}}T{{time}}:00.000Z
+<!-- End desktop sections -->
 ```
 
 ### 2. Literature Note Template
 **Purpose**: Notes from reading/learning
 
 ```markdown
-id:: {{id}}
+# {{today}}-{{time}} - [Source Title]
+
+id:: {{today}}-{{time}}
 type:: literature
-created:: {{timestamp}}
-context:: {{context}}
-status:: draft
-tags:: #zettel #literature
 
-# {{id}} - Literature Note
-
-**Source**: {{source-title}}
-**Author**: {{source-author}}
-**Read**: {{date}}
-**Context**: {{context}}
+**Source**: [Book/Article Title]  
+**Author**: [Author Name]  
+**Read**: {{today}} • 📱 Mobile
+**Context**: {{select: quick-capture | reading | meeting | walking | research | idea | project | personal}}
 
 ## Summary
-{{summary}}
+[Brief summary of the source]
 
-## Key Quotes
-{{quotes}}
+## Key Points
+[Main points or arguments]
 
-## My Thoughts
-{{thoughts}}
+<!-- Desktop sections below -->
+## Quotes
+[Key quotes or passages]
 
-## Connections
-- [[ ]]
-- [[ ]]
+## My Thoughts  
+[Your reflections and connections]
 
 ## References
-{{references}}
+[Citation details or links]
+
+**Status**: draft  
+**Tags**: #zettel #literature #mobile-capture  
+**Created**: {{today}}T{{time}}:00.000Z
+<!-- End desktop sections -->
 ```
 
 ### 3. Permanent Note Template
 **Purpose**: Developed ideas and synthesized concepts
 
 ```markdown
-id:: {{id}}
+# {{today}}-{{time}} - [Concept Name]
+
+id:: {{today}}-{{time}}
 type:: permanent
-created:: {{timestamp}}
-context:: {{context}}
-status:: draft
-tags:: #zettel #permanent
 
-# {{id}} - Permanent Note
+**Concept**: [Core concept or idea]  
+**Developed**: {{today}} {{time}} • 📱 Mobile
+**Context**: {{select: quick-capture | reading | meeting | walking | research | idea | project | personal}}
 
-**Concept**: {{concept}}
-**Developed**: {{date}} {{time}}
-**Context**: {{context}}
+## Core Idea
+[Your main claim or argument]
 
-## Claim
-{{claim}}
+## Supporting Points
+[Evidence and reasoning]
 
-## Evidence
-{{evidence}}
-
+<!-- Desktop sections below -->
 ## Implications
-{{implications}}
+[Consequences and applications]
 
 ## Connections
 - Builds on: [[ ]]
@@ -102,82 +98,81 @@ tags:: #zettel #permanent
 - Related to: [[ ]]
 
 ## Questions
-{{questions}}
+[Unanswered questions or areas for exploration]
+
+**Status**: draft  
+**Tags**: #zettel #permanent #mobile-capture  
+**Created**: {{today}}T{{time}}:00.000Z
+<!-- End desktop sections -->
 ```
 
 ## Template Variables
 
-### Available Variables
+### Logseq Native Variables
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `{{id}}` | Timestamp ID | `2026-01-27-143022` |
-| `{{date}}` | Current date | `2026-01-27` |
+| `{{today}}` | Current date | `2026-01-27` |
 | `{{time}}` | Current time | `14:30` |
-| `{{timestamp}}` | ISO timestamp | `2026-01-27T14:30:22.000Z` |
-| `{{context}}` | Capture context | `quick-capture` |
-| `{{note-type}}` | Note type | `fleeting` |
-| `{{status}}` | Default status | `draft` |
-| `{{capture-device}}` | Device type | `mobile` or `desktop` |
-| `{{year}}` | Current year | `2026` |
-| `{{month}}` | Current month | `01` |
-| `{{day}}` | Current day | `27` |
-| `{{weekday}}` | Day of week | `Tuesday` |
+| `{{select: option1 \| option2}}` | Dropdown selection | `quick-capture` |
 
-### User Variables (Fill manually)
-| Variable | Used In | Purpose |
-|----------|---------|---------|
-| `{{content}}` | Fleeting | Main thought |
-| `{{raw-thought}}` | Fleeting | Unprocessed thought |
-| `{{source-title}}` | Literature | Book/article title |
-| `{{source-author}}` | Literature | Author name |
-| `{{summary}}` | Literature | Brief summary |
-| `{{quotes}}` | Literature | Key passages |
-| `{{thoughts}}` | Literature | Personal reflections |
-| `{{references}}` | Literature | Citation details |
-| `{{concept}}` | Permanent | Core concept |
-| `{{claim}}` | Permanent | Main argument |
-| `{{evidence}}` | Permanent | Supporting evidence |
-| `{{implications}}` | Permanent | Consequences |
-| `{{questions}}` | Permanent | Unanswered questions |
+### Template-Specific Variables
+| Variable | Description | Usage |
+|----------|-------------|-------|
+| `{{today}}-{{time}}` | Page title/ID | `2026-01-27-143022` |
+| `{{select: quick-capture \| reading \| meeting \| walking \| research \| idea \| project \| personal}}` | Context dropdown | Mobile-friendly selection |
+| `<!-- Desktop sections below -->` | Conditional marker | Shows content on desktop only |
+| `<!-- End desktop sections -->` | Conditional marker | Ends desktop-only section |
+
+### Manual Entry Fields
+| Field | Template | Purpose |
+|-------|----------|---------|
+| `[Enter your quick thought here]` | Fleeting | Main thought content |
+| `[Book/Article Title]` | Literature | Source title |
+| `[Author Name]` | Literature | Author name |
+| `[Brief summary of the source]` | Literature | Summary content |
+| `[Main points or arguments]` | Literature | Key points |
+| `[Core concept or idea]` | Permanent | Concept name |
+| `[Your main claim or argument]` | Permanent | Core idea |
+| `[Evidence and reasoning]` | Permanent | Supporting points |
 
 ## Customizing Templates
 
-### Step 1: Locate Template Pages
-Templates are stored as pages in your Logseq graph:
-- `templates/zettel-fleeting`
-- `templates/zettel-literature`
-- `templates/zettel-permanent`
+### Step 1: Locate Template Files
+Templates are stored as files in your Logseq graph:
+```
+/path/to/your/logseq-graph/templates/zettelkasten/
+├── fleeting.md
+├── literature.md
+└── permanent.md
+```
 
-### Step 2: Edit Template Content
-1. Open the template page
-2. Modify the structure
+### Step 2: Edit Template Files
+1. Open the template file in a text editor
+2. Modify the structure as needed
 3. Save changes
 
 ### Step 3: Test Changes
-1. Create a test note with modified template
-2. Verify variable substitution works
-3. Check journal integration
+1. Create a test note using the modified template
+2. Verify template loads correctly
+3. Check journal query integration
 
 ### Modification Examples
 
 #### Add Custom Fields
 ```markdown
 # Add to template
-**Project**: {{project}}
-**Priority**: {{priority}}
+**Project**: [Project Name]
+**Priority**: {{select: low | medium | high}}
 ```
 
 #### Change Section Order
 ```markdown
 # Reorder sections
-## My Thoughts
-{{thoughts}}
+## Key Points
+[Main points]
 
-## Key Quotes  
-{{quotes}}
-
-## Summary
-{{summary}}
+## Summary  
+[Brief summary]
 ```
 
 #### Add Custom Sections
@@ -192,21 +187,22 @@ Templates are stored as pages in your Logseq graph:
 ## Template Design Guidelines
 
 ### Essential Elements (Do Not Remove)
-1. **Properties Block**: Must include `id::`, `type::`, `created::`
-2. **Title Format**: `# {{id}} - [Note Type]`
-3. **Basic Metadata**: Context, date, device
+1. **ID Property**: Must include `id:: {{today}}-{{time}}`
+2. **Type Property**: Must include `type:: [fleeting/literature/permanent]`
+3. **Title Format**: `# {{today}}-{{time}} - [Description]`
 
 ### Recommended Structure
-1. **Properties** (top of note)
-2. **Title & Metadata**
-3. **Content Sections** (template-specific)
-4. **Connection Fields**
-5. **Optional Sections**
+1. **Title** (with ID format)
+2. **Properties** (`id::`, `type::`)
+3. **Metadata** (context, date, device indicator)
+4. **Content Sections** (template-specific)
+5. **Desktop-Only Sections** (wrapped in conditional comments)
 
-### Mobile Considerations
-- **Simplify**: Mobile templates auto-remove optional sections
-- **Essential Only**: Keep critical fields
-- **Quick Entry**: Minimize typing on mobile
+### Mobile-First Considerations
+- **Minimal Properties**: Only `id::` and `type::` on mobile
+- **Context Dropdowns**: Use `{{select:}}` for mobile-friendly selection
+- **Conditional Sections**: Desktop-only content in `<!-- -->` comments
+- **Colon-Free IDs**: `YYYY-MM-DD-HHMMSS` format (no `:`)
 
 ## Template Examples Repository
 
@@ -283,65 +279,90 @@ tags:: #zettel #fleeting #meeting
 
 ### Template Design
 1. **Consistency**: Use similar structure across templates
-2. **Clarity**: Clear section headers
-3. **Flexibility**: Allow for different content types
-4. **Export-Friendly**: Ensure Obsidian compatibility
+2. **Clarity**: Clear section headers with descriptive names
+3. **Mobile-First**: Design for mobile capture first, desktop enhancement second
+4. **Export-Friendly**: Ensure Obsidian compatibility with standard Markdown
 
 ### Variable Usage
-1. **Required Variables**: Always include `{{id}}`, `{{date}}`, `{{timestamp}}`
-2. **Context Variables**: Use `{{context}}` for workflow tracking
-3. **Custom Variables**: Add as needed for your workflow
+1. **Required Variables**: Always include `{{today}}` and `{{time}}` for IDs
+2. **Context Dropdowns**: Use `{{select:}}` for consistent categorization
+3. **Conditional Sections**: Use `<!-- -->` comments for desktop-only content
 
 ### Testing Changes
-1. **Small Changes**: Test each modification
-2. **Cross-Platform**: Test on mobile and desktop
+1. **Small Changes**: Test each modification individually
+2. **Cross-Platform**: Test on mobile and desktop Logseq
 3. **Export Test**: Verify Obsidian compatibility
-4. **Backup**: Keep original templates
+4. **Backup**: Keep original template files
 
 ## Troubleshooting Template Issues
 
-### Variables Not Substituting
-- Check variable spelling (case-sensitive)
-- Ensure `{{` and `}}` are correct
-- Verify template is being used
+### Templates Not Loading
+- Check file location: `templates/zettelkasten/` directory
+- Verify file extensions: `.md` format required
+- Restart Logseq after adding templates
 
-### Template Not Loading
-- Check page exists: `templates/zettel-[type]`
-- Verify plugin is enabled
-- Restart Logseq
+### Variables Not Working
+- Check Logseq version supports `{{today}}` and `{{time}}`
+- Use `/date` and `/time` commands as fallback
+- Manual entry if auto-population fails
 
-### Mobile Template Issues
-- Mobile uses simplified version
-- Some sections auto-removed
-- Check mobile-specific behavior
+### Mobile Issues
+- Conditional sections (`<!-- -->`) may not hide on all mobile versions
+- Dropdowns (`{{select:}}`) may show as plain text
+- Use page `templates/zettelkasten` for quick template access
 
-### Export Formatting Issues
-- Ensure Markdown compatibility
-- Test in Obsidian
-- Check link formatting
+### Query Integration Issues
+- Properties must be at page level: `property:: value`
+- Date format must match: `YYYY-MM-DD`
+- Query syntax: `{{query (property type [[fleeting/literature/permanent]])}}`
 
-## Advanced: Creating New Template Types
+## Creating New Template Types
 
-While the plugin supports three default types, you can create variations:
+You can create custom template variations:
 
-1. **Duplicate Existing Template**: Copy and modify
-2. **Update Plugin Code**: Modify `src/templates.js` (advanced)
-3. **Use Template Variables**: Create flexible templates
+1. **Duplicate Existing Template**: Copy and modify template files
+2. **Create New Template File**: Add to `templates/zettelkasten/` directory
+3. **Update Journal Queries**: Include new types in query filters
+
+Example custom template:
+```markdown
+# {{today}}-{{time}} - Meeting Notes
+
+id:: {{today}}-{{time}}
+type:: meeting
+
+**Topic**: [Meeting Topic]
+**Date**: {{today}}
+**Attendees**: [Names]
+
+## Agenda
+[Meeting agenda]
+
+## Discussion
+[Key discussion points]
+
+## Decisions
+[Decisions made]
+
+## Action Items
+- [ ] [Task 1]
+- [ ] [Task 2]
+```
 
 ## Template Versioning
 
 ### Backup Strategy
-1. **Export Templates**: Copy template pages
-2. **Version Control**: Consider git for templates
-3. **Document Changes**: Note modifications
+1. **File Backup**: Copy template files regularly
+2. **Version Control**: Use git for template management
+3. **Change Log**: Document template modifications
 
 ### Migration Strategy
 When updating templates:
-1. **Backup First**
-2. **Test in New Graph**
-3. **Gradual Rollout**
-4. **Update Documentation**
+1. **Backup First**: Copy existing templates
+2. **Test in New Graph**: Create test graph for new templates
+3. **Gradual Rollout**: Update one template type at a time
+4. **Update Queries**: Ensure journal queries match new templates
 
 ---
 
-For more help, see the `examples/` directory for sample notes and `README.md` for general usage.
+For more help, see the `examples/` directory for sample notes and `TEMPLATE-INSTALLATION.md` for setup instructions.

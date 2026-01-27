@@ -1,112 +1,124 @@
-# Logseq Zettelkasten Plugin
+# Logseq Zettelkasten Templates
 
-A Logseq plugin for rapid Zettelkasten note capture with templates and daily journal integration. Designed for mobile and desktop use with Syncthing sync to Obsidian.
+A mobile-first template system for Zettelkasten note capture in Logseq, designed for plugin-free usage with Syncthing sync to Obsidian. Works on mobile and desktop without JavaScript plugins.
 
 ## Features
 
 - **Three Template Types**: Fleeting, Literature, and Permanent notes
-- **Automatic ID Generation**: `YYYY-MM-DD-HHMMSS` format for unique note identification
-- **Daily Journal Integration**: Collapsible Zettelkasten section in daily journals
-- **Mobile Optimized**: Touch-friendly interface with simplified templates for mobile
-- **Obsidian Compatible**: Notes formatted in standard Markdown for easy export to Obsidian
-- **Cross-Platform**: Works identically on iOS, Android, and desktop Logseq
+- **Colon-Free ID Generation**: `YYYY-MM-DD-HHMMSS` format (no colons in filenames)
+- **Query-Based Journal Integration**: Auto-lists notes in daily journals using Logseq queries
+- **Mobile-First Design**: Optimized for quick capture on mobile devices
+- **Single Template Set**: Unified templates work on both mobile and desktop
+- **Context Dropdowns**: Mobile-friendly selection with 8 predefined contexts
+- **Conditional Sections**: Desktop-only content hidden on mobile
+- **Obsidian Compatible**: Standard Markdown format for easy export
+- **Cross-Platform**: Works on iOS, Android, and desktop Logseq without plugins
 
 ## Installation
 
-### Method 1: From Logseq Plugin Marketplace (Recommended)
-1. Open Logseq
-2. Go to Settings → Plugins
-3. Search for "Zettelkasten"
-4. Click "Install"
-5. Restart Logseq if prompted
-
-### Method 2: Manual Installation from Source
-1. Download or clone the repository:
+### Method 1: Template-Only Installation (Recommended for Mobile)
+1. **Copy template files** to your Logseq graph:
    ```bash
-   git clone https://github.com/yourusername/logseq-zettel.git
-   cd logseq-zettel
+   cp -r templates/ /path/to/your/logseq-graph/
    ```
 
-2. Install dependencies and build:
-   ```bash
-   npm install
-   npm run build
-   ```
+2. **Create quick access page** `templates/zettelkasten` in Logseq
 
-3. In Logseq:
-   - Go to Settings → Plugins
-   - Click "Load unpacked plugin"
-   - Select the `dist` folder from the project
-   - Enable the plugin
+3. **Use templates** by creating new pages with template selection
 
-### Method 3: Using Pre-built Release
-1. Download the latest release from GitHub
-2. Extract the zip file
-3. In Logseq:
-   - Go to Settings → Plugins
-   - Click "Load unpacked plugin"
-   - Select the extracted folder
-   - Enable the plugin
+### Method 2: Plugin Installation (Desktop Only)
+For desktop users who can use plugins:
+1. **Install from Logseq Marketplace** or build from source
+2. **Enable plugin** in settings
+3. **Use slash commands**: `/zettel fleeting`, `/zettel literature`, `/zettel permanent`
+
+### Method 3: Manual Setup
+1. **Download templates** from this repository
+2. **Place in Logseq templates directory**: `templates/zettelkasten/`
+3. **Configure Logseq** for Markdown format and `YYYY-MM-DD` date format
 
 ## System Requirements
 - Logseq v0.9.0 or higher
-- Node.js 16+ (for development/build only)
+- Mobile Logseq (no plugin support required)
 - Syncthing (recommended for mobile-desktop sync)
-- Obsidian (for final note repository)
+- Obsidian (optional, for final note repository)
 
 ## Quick Start
 
-1. **Install the plugin** using one of the methods above
-2. **Open today's journal** in Logseq
-3. **Type `/zettel fleeting`** to create your first Zettelkasten note
+1. **Copy templates** to your Logseq graph
+2. **Open Logseq** and create new page
+3. **Select template** from `templates/zettelkasten/` directory
 4. **Fill in the template** with your thoughts
-5. **Check the Zettelkasten section** at the top of your journal to see the note link
+5. **Check daily journal** for auto-listed notes (query-based integration)
 
 ## Detailed Usage Guide
 
 ### Creating Zettelkasten Notes
 
-#### Slash Commands (Desktop & Mobile)
-Use these commands anywhere in Logseq:
+#### Template-Based Creation (Mobile & Desktop)
+1. **Create new page** in Logseq
+2. **Select template** from `templates/zettelkasten/` directory
+3. **Fill template fields**:
+   - Select context from dropdown
+   - Enter main content
+   - Add any additional information
 
-| Command | Description | Mobile Shortcut |
-|---------|-------------|-----------------|
-| `/zettel fleeting` | Create a fleeting note (quick capture) | `/z fle` |
-| `/zettel literature` | Create a literature note (for reading/learning) | `/z lit` |
-| `/zettel permanent` | Create a permanent note (developed ideas) | `/z per` |
-| `/zettel` | Show available commands | `/z` |
+#### Plugin Commands (Desktop Only)
+If using the plugin on desktop:
+```
+/zettel fleeting     # Quick capture
+/zettel literature   # Reading notes  
+/zettel permanent    # Developed ideas
+/zettel              # Show all commands
+```
 
-#### Mobile-Specific Features
-- **Floating Action Button**: On mobile, a blue "Z" button appears in the bottom-right corner for quick template selection
-- **Simplified Templates**: Mobile templates have fewer optional fields for faster entry
-- **Touch Optimization**: Larger buttons and optimized UI for touch screens
+### Mobile-First Design
+
+#### Mobile Optimization
+- **Minimal Properties**: Only `id::` and `type::` on mobile
+- **Context Dropdowns**: Quick selection from 8 options
+- **Conditional Sections**: Desktop-only content auto-hidden
+- **Colon-Free IDs**: `2026-01-27-143022` format (no `:`)
+
+#### Mobile Capture Workflow
+```
+1. Open Logseq on mobile
+2. Create new page
+3. Select "fleeting" template
+4. Choose context (dropdown)
+5. Enter thought
+6. Save (auto-ID: 2026-01-27-143022)
+```
 
 ### Daily Journal Integration
 
-#### Automatic Section Creation
-Each day's journal automatically includes:
-- A collapsible "Zettelkasten Notes" section at the top
-- Default state: Collapsed (click to expand)
-- Automatic links to all Zettelkasten notes created that day
+#### Query-Based Auto-Listing
+Each daily journal includes a query that automatically lists today's Zettelkasten notes:
 
-#### Journal Section Features
-- **Collapsible**: Click the arrow to expand/collapse
-- **Auto-updating**: New notes automatically appear in the section
-- **Persistent**: Section remains even after closing/reopening Logseq
-- **Styled**: Distinct visual appearance for easy identification
+```markdown
+## 🔍 Auto-Listed Zettels {{renderer :collapse, query-zettels}}
+{{query (and (property type [[fleeting/literature/permanent]]) (page-property created {{today}}))}}
+```
+
+#### Manual Linking
+You can also manually link notes in your journal:
+```markdown
+- [[2026-01-27-143022]] - Quick thought about Lindy Effect
+```
 
 ### Note Structure & ID System
 
-#### Automatic ID Generation
-Each note receives a unique timestamp ID:
+#### Colon-Free ID Generation
 - **Format**: `YYYY-MM-DD-HHMMSS` (e.g., `2026-01-27-143022`)
+- **No Colons**: Uses `HHMMSS` instead of `HH:MM:SS`
 - **Uniqueness**: Second-level granularity ensures uniqueness
 - **Sorting**: Chronological sorting by filename
 - **Page Name**: ID becomes the page name in Logseq
 
 #### Template Structure
 All templates include:
-- **Properties**: `id`, `type`, `created`, `context`, `status`, `tags`
+- **Essential Properties**: `id::`, `type::` (mobile & desktop)
+- **Additional Properties**: `status::`, `tags::`, `created::` (desktop only)
 - **Header**: Note title with ID and type
 - **Content Sections**: Template-specific fields
 - **Connection Fields**: Placeholders for linking to other notes
@@ -119,7 +131,7 @@ All templates include:
 - Immediate thoughts that need recording
 - Inspiration that strikes
 - Things to process later
-**Key Fields**: Quick Thought, To Develop, Raw Capture
+**Key Fields**: Thought, To Process Later
 
 #### 2. Literature Notes
 **Purpose**: Capturing insights from external sources
@@ -127,7 +139,7 @@ All templates include:
 - Reading books, articles, papers
 - Watching educational content
 - Listening to podcasts
-**Key Fields**: Source, Author, Summary, Key Quotes, My Thoughts
+**Key Fields**: Source, Author, Summary, Key Points
 
 #### 3. Permanent Notes
 **Purpose**: Developed ideas and synthesized concepts
@@ -135,224 +147,186 @@ All templates include:
 - Connecting multiple fleeting/literature notes
 - Developing original ideas
 - Creating reference material
-**Key Fields**: Concept, Claim, Evidence, Implications, Connections
+**Key Fields**: Concept, Core Idea, Supporting Points
 
 ### Workflow Integration
 
 #### Rapid Capture Workflow
 ```
-Quick Thought → /zettel fleeting → Fill template → Appears in journal
+Quick Thought → Select fleeting template → Fill template → Auto-listed in journal
 ```
 
 #### Reading Workflow
 ```
-Read Source → /zettel literature → Add quotes/thoughts → Connect to existing notes
+Read Source → Select literature template → Add summary/points → Connect to existing notes
 ```
 
-#### Idea Development Workflow
+#### Development Workflow
 ```
-Multiple notes → /zettel permanent → Synthesize ideas → Create connections
+Multiple notes → Select permanent template → Synthesize ideas → Create connections
 ```
 
-### Export to Obsidian
+## Mobile-Desktop Sync Strategy
 
-#### Syncthing Setup
-1. **Install Syncthing** on mobile and desktop devices
-2. **Configure folder sync** for your Logseq graph directory
-3. **Enable continuous sync** for real-time updates
-
-#### Manual Export Process
-1. **On Desktop**:
-   - Open your Logseq graph folder
-   - Navigate to `pages/` directory
-   - Copy files with timestamp IDs (e.g., `2026-01-27-143022.md`)
-   
-2. **To Obsidian**:
-   - Open your Obsidian vault
-   - Paste copied files into desired location
-   - Obsidian will automatically index the notes
-
-#### Export Tips
-- **Batch Export**: Copy multiple files at once
-- **Organization**: Keep exported files flat (no subfolders) for chronological sorting
-- **Verification**: Check that `[[wikilinks]]` work correctly in Obsidian
-- **Backup**: Keep original files in Logseq until confirmed in Obsidian
-
-### Mobile-Desktop Sync Strategy
-
-#### Recommended Setup
+### Recommended Setup
 ```
 Mobile Logseq → Syncthing → Desktop Logseq → Manual Copy → Obsidian Vault
 ```
 
-#### Advantages
+### Advantages
 - **Mobile Capture**: Quick notes on the go
 - **Desktop Processing**: Better for developing complex notes
 - **Central Repository**: Obsidian as final knowledge base
 - **No Plugin Conflicts**: Simple file-based sync
 
-#### File Locations
+### File Locations
 - **Logseq (Mobile)**: App-specific storage (synced via Syncthing)
 - **Logseq (Desktop)**: User directory (e.g., `~/Logseq/`)
 - **Obsidian**: Your chosen vault location
 
 ## Template Customization
 
-### Modifying Default Templates
+### Modifying Templates
 The three default templates can be modified to suit your workflow:
 
-1. **Locate Template Pages**:
-   - Templates are stored as pages in your Logseq graph
-   - Look for pages: `templates/zettel-fleeting`, `templates/zettel-literature`, `templates/zettel-permanent`
+1. **Locate Template Files**:
+   - Templates are stored in `templates/zettelkasten/` directory
+   - Files: `fleeting.md`, `literature.md`, `permanent.md`
 
 2. **Edit Template Content**:
-   - Open the template page
+   - Open the template file in a text editor
    - Modify the structure as needed
    - Save changes
 
 3. **Template Variables**:
-   - `{{id}}` - Auto-generated timestamp ID
-   - `{{date}}` - Current date (YYYY-MM-DD)
+   - `{{today}}` - Current date (YYYY-MM-DD)
    - `{{time}}` - Current time (HH:MM)
-   - `{{timestamp}}` - Full ISO timestamp
-   - `{{context}}` - Capture context
-   - `{{note-type}}` - Note type (fleeting/literature/permanent)
-   - `{{status}}` - Default status (draft)
-   - `{{capture-device}}` - mobile/desktop
-   - `{{year}}`, `{{month}}`, `{{day}}`, `{{weekday}}` - Date components
+   - `{{select: option1 | option2 | option3}}` - Dropdown selection
 
 ### Template Modification Guidelines
-- **Keep Essential Fields**: Don't remove `id`, `type`, `created` properties
+- **Keep Essential Fields**: Don't remove `id::` and `type::` properties
 - **Maintain Structure**: Keep header format for consistency
 - **Test Changes**: Create test notes after modifications
 - **Backup Templates**: Copy templates before major changes
 
-## Configuration Options
+## Export to Obsidian
 
-### Journal Section Settings
-The Zettelkasten section in daily journals can be configured:
+### Simple Export Process
+1. **On Desktop**:
+   - Open your Logseq graph folder
+   - Navigate to `pages/` directory
+   - Copy files with timestamp IDs (e.g., `2026-01-27-143022.md`)
+    
+2. **To Obsidian**:
+   - Open your Obsidian vault
+   - Paste copied files into desired location
+   - Obsidian will automatically index the notes
 
-- **Position**: Always at the top of the journal
-- **Default State**: Collapsed (configurable via template)
-- **Title**: "Zettelkasten Notes" (customizable in template)
-
-### Mobile Optimization Settings
-- **Simplified Templates**: Automatic on mobile
-- **Floating Button**: Enabled by default on mobile
-- **Short Commands**: `/z` prefix for faster typing
+### Export Tips
+- **Batch Export**: Copy multiple files at once
+- **Organization**: Keep exported files flat (no subfolders) for chronological sorting
+- **Verification**: Check that `[[wikilinks]]` work correctly in Obsidian
+- **Backup**: Keep original files in Logseq until confirmed in Obsidian
 
 ## Troubleshooting
 
 ### Common Issues & Solutions
 
-#### Plugin Not Loading
-- **Check Logseq Version**: Ensure v0.9.0+
-- **Verify Installation**: Plugin should appear in Settings → Plugins
-- **Restart Logseq**: Sometimes required after installation
+#### Templates Not Showing
+- **Check Directory**: Ensure `templates/zettelkasten/` exists in your graph
+- **File Format**: Files must be `.md` format
+- **Restart Logseq**: Sometimes required after adding templates
 
-#### Slash Commands Not Working
-- **Check Plugin Status**: Ensure plugin is enabled
-- **Typo Check**: Commands are case-sensitive
-- **Restart Plugin**: Disable and re-enable the plugin
+#### Date/Time Not Populating
+- **System Time**: Ensure device time is correct
+- **Logseq Settings**: Date format should be `YYYY-MM-DD`
+- **Manual Entry**: Use `/date` and `/time` commands if needed
 
-#### Journal Section Missing
-- **Create New Journal**: Open today's journal page
-- **Check Template**: Ensure `templates/zettel-*` pages exist
-- **Plugin Initialization**: May need to create first Zettel note
+#### Query Not Working
+- **Property Names**: Must match exactly (`type::`, not `- type::`)
+- **Date Format**: Must match `YYYY-MM-DD` format
+- **Page Properties**: Properties must be at page level, not block level
 
 #### Mobile Issues
-- **Performance**: Large graphs may slow mobile performance
-- **UI Elements**: Floating button may need page refresh
-- **Sync Delays**: Syncthing may take time to sync changes
-
-#### Export Problems
-- **File Format**: Ensure notes are `.md` files
-- **Link Format**: `[[wikilinks]]` should work in Obsidian
-- **Sync Status**: Verify Syncthing is actively syncing
+- **Template Selection**: Use page `templates/zettelkasten` for quick access
+- **Context Dropdowns**: May not work on all mobile Logseq versions
+- **Syncthing Sync**: Check sync status if notes aren't appearing on desktop
 
 ### Debugging Tips
-1. **Check Browser Console**: Desktop Logseq → F12 → Console
-2. **Plugin Logs**: Look for "Zettelkasten" messages
-3. **Test Minimal**: Create new graph for testing
-4. **Clear Cache**: Sometimes fixes UI issues
+1. **Check File Structure**: Verify templates are in correct location
+2. **Test Queries**: Create simple test queries to verify syntax
+3. **Manual Testing**: Create test notes to verify template functionality
+4. **Logseq Community**: Check Logseq Discord for mobile-specific issues
 
-## Advanced Usage
+## Project Structure
 
-### Batch Processing
-- **Morning Review**: Process yesterday's fleeting notes
-- **Weekly Synthesis**: Create permanent notes from weekly captures
-- **Monthly Archive**: Review and tag older notes
-
-### Integration with Other Systems
-- **Task Management**: Use `[ ]` checkboxes in templates
-- **Calendar Integration**: Date-based note retrieval
-- **Reference Management**: Link to Zotero or other reference managers
-
-### Performance Optimization
-- **Large Graphs**: Consider separate graphs for different projects
-- **Mobile Storage**: Regularly sync to desktop to free mobile space
-- **Backup Strategy**: Regular backups of Logseq graph
-
-## Examples
-
-See the `examples/` directory for:
-- Sample Zettelkasten notes with 2026 timestamps
-- Daily journal with Zettelkasten section
-- Template structure examples
-
-## Support
-
-### Getting Help
-1. **Check Documentation**: This README and example files
-2. **Test First**: Try in a new graph before main graph
-3. **Backup Data**: Always backup before troubleshooting
-
-### Reporting Issues
-Include:
-- Logseq version
-- Platform (iOS/Android/Desktop)
-- Steps to reproduce
-- Error messages
-- Screenshots if helpful
-
-## Development
-
-See `AGENTS.md` for development guidelines and build instructions.
-
-## Mobile Optimization
-
-On mobile devices:
-- Templates are simplified with fewer optional fields
-- Shorter slash commands for faster entry
-- Touch-optimized interface
-- Performance optimized for mobile processors
-
-## Development
-
-### Project Structure
 ```
 logseq-zettel/
-├── src/
-│   ├── main.js          # Plugin entry point
-│   ├── templates.js     # Template definitions
-│   ├── journal.js       # Daily journal integration
-│   └── utils.js         # Utilities (ID generation, etc.)
-├── icons/               # Plugin icons
-└── dist/                # Built plugin
+├── templates/                    # Standalone template files
+│   ├── zettelkasten/
+│   │   ├── fleeting.md          # Fleeting note template
+│   │   ├── literature.md        # Literature note template
+│   │   └── permanent.md         # Permanent note template
+│   └── daily-journal-with-zettels.md  # Journal template
+├── src/                         # Plugin source code (desktop only)
+│   ├── utils.js                 # Utility functions
+│   ├── templates.js             # Template definitions
+│   ├── main.js                  # Plugin entry point
+│   └── journal.js               # Journal integration
+├── examples/                    # Sample notes
+├── icons/                       # Plugin icons (desktop only)
+├── dist/                        # Built plugin (desktop only)
+├── README.md                    # This file
+├── TEMPLATE-INSTALLATION.md     # Detailed template setup guide
+├── QUICKSTART-TEMPLATES.md      # 5-minute quick start
+├── QUICKSTART.md                # Plugin quick start (desktop)
+├── TEMPLATES.md                 # Template documentation
+└── package.json                 # Project configuration
 ```
 
-### Build Commands
+## Development
+
+### Building the Plugin (Desktop Only)
 ```bash
-npm install      # Install dependencies
-npm run dev      # Development mode with hot reload
-npm run build    # Build for production
-npm run preview  # Preview built plugin
+npm install     # Install dependencies
+npm run build   # Build plugin
+npm run dev     # Development mode with hot reload
 ```
+
+### Template Development
+1. **Edit template files** in `templates/` directory
+2. **Test changes** in your Logseq graph
+3. **Update documentation** if template structure changes
+4. **Commit changes** to repository
+
+## Support & Resources
+
+### Documentation
+- `TEMPLATE-INSTALLATION.md` - Detailed template setup guide
+- `QUICKSTART-TEMPLATES.md` - 5-minute quick start
+- `TEMPLATES.md` - Template reference and examples
+- `examples/` - Sample notes and workflows
+
+### Community
+- **Logseq Discord**: #templates channel for template discussions
+- **GitHub Issues**: Bug reports and feature requests
+- **Template Repository**: Updates and examples
+
+### Updates
+- **Check Repository**: Regular template updates and improvements
+- **Backup First**: Always backup your templates before updating
+- **Test Changes**: Test new templates in separate graph first
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Support
+## Acknowledgments
 
-For issues and feature requests, please open an issue on GitHub.
+- Inspired by Zettelkasten methodology and Niklas Luhmann's note-taking system
+- Built for the Logseq community with mobile-first design
+- Thanks to all contributors and testers
+
+---
+
+**Ready to start?** Check out `QUICKSTART-TEMPLATES.md` for a 5-minute setup guide!

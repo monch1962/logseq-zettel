@@ -1,37 +1,40 @@
-# Quick Start Guide - Logseq Zettelkasten Plugin
+# Quick Start Guide - Logseq Zettelkasten Templates
 
 ## ⚡ 5-Minute Setup
 
-### Step 1: Install the Plugin
-1. Open Logseq → Settings → Plugins
-2. Install "Zettelkasten" plugin
-3. Restart Logseq if prompted
+### Step 1: Copy Templates
+1. Copy template files to your Logseq graph:
+   ```bash
+   cp -r templates/ /path/to/your/logseq-graph/
+   ```
+
+2. Create quick access page `templates/zettelkasten` in Logseq
 
 ### Step 2: Create Your First Zettel
-1. Open today's journal (click date in sidebar)
-2. Type `/zettel fleeting` and press Enter
-3. Fill in the "Quick Thought" section
-4. Save the note
+1. Open Logseq and create new page
+2. Select template from `templates/zettelkasten/` directory
+3. Fill in the template fields
+4. Save the note (auto-ID: `2026-01-27-143022`)
 
 ### Step 3: Verify It Works
-1. Look at the top of your journal
-2. You should see "Zettelkasten Notes" section (collapsed)
+1. Open today's journal
+2. Look for "Auto-Listed Zettels" section
 3. Click the arrow to expand
-4. See your note listed as `[[2026-01-27-143022]] - Fleeting: [your topic]`
+4. See your note listed via query
 
 ## 📱 Mobile Setup
 
 ### Installation
 1. Install Logseq from App Store/Play Store
-2. Install Zettelkasten plugin through Logseq
-3. Enable plugin in settings
+2. Copy template files to mobile Logseq graph
+3. Create quick access page `templates/zettelkasten`
 
 ### First Mobile Capture
 1. Open Logseq on mobile
-2. Tap today's journal
-3. Type `/z fle` (mobile shortcut)
-4. Use simplified mobile template
-5. Note appears in journal section
+2. Create new page
+3. Select "fleeting" template
+4. Choose context from dropdown
+5. Enter thought and save
 
 ### Syncthing Setup (Recommended)
 1. Install Syncthing on mobile and desktop
@@ -39,45 +42,57 @@
 3. Enable auto-sync
 4. Test by creating note on mobile, check desktop
 
-## 🔧 Essential Commands
+## 🔧 Template Access Methods
 
-### Desktop Commands
+### Quick Access Page
+Create page `templates/zettelkasten` with:
+```markdown
+# 📱 Zettelkasten Quick Access
+
+## Quick Capture
+- [[fleeting]] - Spontaneous thoughts
+
+## Reading Notes  
+- [[literature]] - Books, articles, learning
+
+## Developed Ideas
+- [[permanent]] - Synthesized concepts
+
+## Daily Journal
+- [[daily-journal-with-zettels]] - Auto-lists today's zettels
+```
+
+### File Navigation
+- Navigate to `templates/zettelkasten/` directory
+- Select template file when creating new page
+
+### Plugin Commands (Desktop Only)
+If using the plugin:
 ```
 /zettel fleeting     # Quick capture
 /zettel literature   # Reading notes  
 /zettel permanent    # Developed ideas
-/zettel             # Show all commands
-```
-
-### Mobile Shortcuts
-```
-/z fle              # Fleeting note
-/z lit              # Literature note
-/z per              # Permanent note
-/z                  # Show commands
 ```
 
 ## 🎯 Workflow Examples
 
 ### Morning Capture
-1. Coffee thought → `/zettel fleeting`
-2. Fill "Quick Thought"
-3. Appears in today's journal
-4. Process later when at desktop
+1. Coffee thought → Select "fleeting" template
+2. Choose "quick-capture" context
+3. Enter thought
+4. Auto-listed in today's journal
 
 ### Reading Session
 1. Read book/article
-2. `/zettel literature`
-3. Add quotes in "Key Quotes"
-4. Add thoughts in "My Thoughts"
-5. Link to related notes
+2. Select "literature" template
+3. Add source and summary
+4. Add key points and quotes
 
 ### Idea Development
 1. Multiple related notes
-2. `/zettel permanent`
-3. Synthesize in "Claim" section
-4. Add evidence
-5. Create connections
+2. Select "permanent" template
+3. Synthesize in "Core Idea" section
+4. Add supporting points and connections
 
 ## 📤 Export to Obsidian
 
@@ -96,20 +111,20 @@
 
 ## 🚨 Troubleshooting Quick Fixes
 
-### Plugin Not Working
-- Check it's enabled in Settings → Plugins
-- Restart Logseq
-- Try in new graph first
+### Templates Not Showing
+- Check `templates/zettelkasten/` directory exists
+- Files must be `.md` format
+- Restart Logseq after adding templates
 
-### No Journal Section
-- Create first Zettel note
+### No Journal Listing
 - Check today's journal exists
-- Restart plugin
+- Verify query syntax in journal template
+- Properties must be at page level (`property:: value`)
 
 ### Mobile Issues
-- Use `/z` shortcuts
-- Floating button may need refresh
-- Check Syncthing sync status
+- Use quick access page `templates/zettelkasten`
+- Conditional sections may show on mobile
+- Manual entry if dropdowns don't work
 
 ### Export Problems
 - Ensure `.md` file extension
@@ -119,20 +134,21 @@
 ## 📞 Getting Help
 
 1. **Check Examples**: `examples/` directory
-2. **Read Full Guide**: `README.md`
-3. **Test First**: Try in new graph
-4. **Backup**: Always backup your data
+2. **Read Template Guide**: `TEMPLATES.md`
+3. **Read Installation Guide**: `TEMPLATE-INSTALLATION.md`
+4. **Test First**: Try in new graph
+5. **Backup**: Always backup your data
 
 ## ✅ Success Checklist
 
-- [ ] Plugin installed and enabled
-- [ ] Can create fleeting note with `/zettel fleeting`
-- [ ] Note appears in journal Zettelkasten section
-- [ ] Mobile shortcuts work (`/z fle`)
+- [ ] Template files copied to Logseq graph
+- [ ] Can create fleeting note using template
+- [ ] Note appears in journal via query
+- [ ] Mobile capture works with minimal input
 - [ ] Syncthing syncs between devices
 - [ ] Can export notes to Obsidian
 - [ ] Links work in Obsidian
 
 ---
 
-**Next Steps**: Read the full `README.md` for advanced features, template customization, and workflow optimization.
+**Next Steps**: Read `TEMPLATE-INSTALLATION.md` for detailed setup and `TEMPLATES.md` for template customization.

@@ -11,20 +11,9 @@ This guide explains how to set up the mobile-first Zettelkasten templates for Lo
 
 ## Installation Methods
 
-### Method 1: Plugin Installation (Recommended for Desktop)
+### Method 1: Template-Only Installation (Recommended)
 
-If you can use plugins on desktop:
-
-1. **Install the plugin** from Logseq Marketplace or build from source
-2. **Enable the plugin** in Logseq settings
-3. **Use slash commands**:
-   - `/zettel fleeting` or `/z fle` - Quick thought
-   - `/zettel literature` or `/z lit` - Reading notes
-   - `/zettel permanent` or `/z per` - Developed ideas
-
-### Method 2: Manual Template Installation (Mobile & Desktop)
-
-For mobile Logseq or plugin-free setup:
+For mobile Logseq or plugin-free setup on desktop:
 
 #### Step 1: Copy Template Files
 
