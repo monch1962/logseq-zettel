@@ -1,0 +1,94 @@
+{
+  "name": "Zettelkasten Quick Capture",
+  "description": "Mobile-optimized quick thought capture workflow",
+  "version": "1.0.0",
+  "author": "Logseq Zettelkasten",
+  "steps": [
+    {
+      "id": "capture-thought",
+      "name": "Capture Thought",
+      "description": "Quick capture of a thought or idea",
+      "template": "zettelkasten/fleeting-sequence",
+      "prompts": [
+        {
+          "variable": "title",
+          "label": "Quick Thought",
+          "description": "What's on your mind?",
+          "required": true,
+          "placeholder": "Enter your thought here..."
+        },
+        {
+          "variable": "context",
+          "label": "Context",
+          "description": "Where/why are you capturing this?",
+          "type": "select",
+          "options": [
+            {"value": "quick-capture", "label": "Quick Capture"},
+            {"value": "reading", "label": "Reading"},
+            {"value": "meeting", "label": "Meeting"},
+            {"value": "walking", "label": "Walking"},
+            {"value": "research", "label": "Research"},
+            {"value": "idea", "label": "Idea"},
+            {"value": "project", "label": "Project"},
+            {"value": "personal", "label": "Personal"}
+          ],
+          "default": "quick-capture"
+        },
+        {
+          "variable": "priority",
+          "label": "Priority",
+          "description": "How important is this thought?",
+          "type": "select",
+          "options": [
+            {"value": "low", "label": "Low"},
+            {"value": "medium", "label": "Medium"},
+            {"value": "high", "label": "High"}
+          ],
+          "default": "medium"
+        }
+      ]
+    },
+    {
+      "id": "add-context",
+      "name": "Add Context",
+      "description": "Optional additional context",
+      "condition": "{{select: add-more-context: yes | no}} == 'yes'",
+      "prompts": [
+        {
+          "variable": "project",
+          "label": "Project",
+          "description": "Optional project association",
+          "required": false,
+          "placeholder": "Project name (optional)"
+        },
+        {
+          "variable": "include-advanced",
+          "label": "Include Advanced Fields",
+          "description": "Add energy level, location, mood?",
+          "type": "select",
+          "options": [
+            {"value": "yes", "label": "Yes"},
+            {"value": "no", "label": "No"}
+          ],
+          "default": "no"
+        }
+      ]
+    },
+    {
+      "id": "finalize",
+      "name": "Finalize",
+      "description": "Complete the capture",
+      "action": "message",
+      "config": {
+        "message": "Note captured successfully! ID: {{zettel-id}}",
+        "type": "success"
+      }
+    }
+  ],
+  "metadata": {
+    "mobile-optimized": true,
+    "estimated-time": "30 seconds",
+    "tags": ["zettelkasten", "quick-capture", "mobile"],
+    "category": "Zettelkasten"
+  }
+}

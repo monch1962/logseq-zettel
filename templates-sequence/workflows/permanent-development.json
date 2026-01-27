@@ -1,0 +1,209 @@
+{
+  "name": "Permanent Note Development",
+  "description": "Structured workflow for developing permanent notes from ideas",
+  "version": "1.0.0",
+  "author": "Logseq Zettelkasten",
+  "steps": [
+    {
+      "id": "concept-definition",
+      "name": "Define Concept",
+      "description": "Start by defining the core concept",
+      "template": "zettelkasten/permanent-sequence",
+      "prompts": [
+        {
+          "variable": "title",
+          "label": "Concept Title",
+          "description": "What concept are you developing?",
+          "required": true,
+          "placeholder": "Enter the concept name..."
+        },
+        {
+          "variable": "importance",
+          "label": "Importance",
+          "description": "How important is this concept to your work?",
+          "type": "select",
+          "options": [
+            {"value": "low", "label": "Low - Interesting but not critical"},
+            {"value": "medium", "label": "Medium - Useful for current work"},
+            {"value": "high", "label": "High - Core to your thinking"}
+          ],
+          "default": "medium"
+        },
+        {
+          "variable": "confidence",
+          "label": "Confidence Level",
+          "description": "How confident are you in this understanding?",
+          "type": "select",
+          "options": [
+            {"value": "low", "label": "Low - Still exploring"},
+            {"value": "medium", "label": "Medium - Reasonably confident"},
+            {"value": "high", "label": "High - Well-established understanding"}
+          ],
+          "default": "medium"
+        }
+      ]
+    },
+    {
+      "id": "core-idea",
+      "name": "Develop Core Idea",
+      "description": "Articulate the core idea in your own words",
+      "condition": "true",
+      "prompts": [
+        {
+          "variable": "core-idea",
+          "label": "Core Idea",
+          "description": "The main idea in one complete sentence",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "State the core idea clearly..."
+        },
+        {
+          "variable": "elaboration",
+          "label": "Elaboration",
+          "description": "Expand on the core idea",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Provide more detail and context..."
+        }
+      ]
+    },
+    {
+      "id": "supporting-points",
+      "name": "Add Supporting Points",
+      "description": "Build the argument with supporting evidence",
+      "condition": "true",
+      "prompts": [
+        {
+          "variable": "supporting-points",
+          "label": "Supporting Points",
+          "description": "Key points that support the core idea",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "List 3-5 supporting points..."
+        },
+        {
+          "variable": "evidence",
+          "label": "Evidence & Sources",
+          "description": "What evidence supports this?",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Cite sources, data, or examples..."
+        }
+      ]
+    },
+    {
+      "id": "connections-development",
+      "name": "Develop Connections",
+      "description": "Connect to existing knowledge",
+      "condition": "{{select: develop-connections: basic | advanced | skip}} != 'skip'",
+      "prompts": [
+        {
+          "variable": "builds-on",
+          "label": "Builds On",
+          "description": "What existing notes does this build on?",
+          "required": false,
+          "placeholder": "[[note-id-1]], [[note-id-2]]"
+        },
+        {
+          "variable": "contrasts-with",
+          "label": "Contrasts With",
+          "description": "What ideas does this contrast with?",
+          "required": false,
+          "placeholder": "Alternative viewpoints or theories"
+        },
+        {
+          "variable": "leads-to",
+          "label": "Leads To",
+          "description": "What ideas might this lead to?",
+          "required": false,
+          "placeholder": "Potential future developments"
+        }
+      ]
+    },
+    {
+      "id": "implications",
+      "name": "Explore Implications",
+      "description": "Consider the implications and applications",
+      "condition": "{{select: explore-implications: yes | no}} == 'yes'",
+      "prompts": [
+        {
+          "variable": "implications",
+          "label": "Implications",
+          "description": "What are the consequences of this idea?",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "How does this change your thinking?"
+        },
+        {
+          "variable": "applications",
+          "label": "Applications",
+          "description": "How can this be applied?",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Practical uses or implementations"
+        },
+        {
+          "variable": "questions",
+          "label": "Open Questions",
+          "description": "What questions does this raise?",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "What still needs to be explored?"
+        }
+      ]
+    },
+    {
+      "id": "development-history",
+      "name": "Development History",
+      "description": "Track how this idea developed",
+      "condition": "{{select: track-history: yes | no}} == 'yes'",
+      "prompts": [
+        {
+          "variable": "origin",
+          "label": "Origin",
+          "description": "Where did this idea come from?",
+          "required": false,
+          "placeholder": "Initial spark or source"
+        },
+        {
+          "variable": "development-stages",
+          "label": "Development Stages",
+          "description": "How has this idea evolved?",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Brief history of development..."
+        },
+        {
+          "variable": "status",
+          "label": "Current Status",
+          "description": "Where is this idea now?",
+          "type": "select",
+          "options": [
+            {"value": "seed", "label": "Seed - Just starting"},
+            {"value": "developing", "label": "Developing - Actively working on"},
+            {"value": "mature", "label": "Mature - Well-developed"},
+            {"value": "archived", "label": "Archived - No longer active"}
+          ],
+          "default": "developing"
+        }
+      ]
+    },
+    {
+      "id": "finalize",
+      "name": "Complete Development",
+      "description": "Finish the permanent note",
+      "action": "message",
+      "config": {
+        "message": "Permanent note developed successfully! ID: {{zettel-id}}\n\nConcept: {{title}}\nImportance: {{importance}} | Confidence: {{confidence}}\n\nThis note is now part of your permanent knowledge base.",
+        "type": "success"
+      }
+    }
+  ],
+  "metadata": {
+    "mobile-optimized": true,
+    "estimated-time": "5-10 minutes",
+    "tags": ["zettelkasten", "permanent", "development", "thinking"],
+    "category": "Zettelkasten",
+    "workflow-type": "idea-development"
+  }
+}
