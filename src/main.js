@@ -3,7 +3,9 @@ import {
   getTemplateVariables, 
   populateTemplateVariables,
   simplifyForMobile,
-  isMobile 
+  isMobile,
+  getContextDropdown,
+  getContextOptions
 } from './utils.js';
 import { getTemplate, getTemplateDisplayName } from './templates.js';
 import { 
@@ -14,14 +16,24 @@ import {
 
 let pluginInitialized = false;
 
-async function createZettelNote(noteType, context = 'quick-capture') {
+async function createZettelNote(noteType, context = null) {
   try {
-    // Generate unique ID
-    const zettelId = generateZettelId();
+    // Generate unique ID with colon-free format
+    const zettelId = generateZettelId('second');
+    
+    // Get context from user if not provided
+    let selectedContext = context;
+    if (!selectedContext && isMobile()) {
+      // On mobile, use dropdown for context selection
+      selectedContext = await promptForContext();
+    }
+    if (!selectedContext) {
+      selectedContext = 'quick-capture';
+    }
     
     // Get template and populate variables
     const template = getTemplate(noteType);
-    const variables = getTemplateVariables(zettelId, noteType, context);
+    const variables = getTemplateVariables(zettelId, noteType, selectedContext);
     let populatedTemplate = populateTemplateVariables(template, variables);
     
     // Simplify for mobile if needed
@@ -39,7 +51,7 @@ async function createZettelNote(noteType, context = 'quick-capture') {
     // Add to today's journal
     const todayJournal = await getTodayJournalPage();
     if (todayJournal) {
-      const briefDescription = getBriefDescriptionFromContext(context);
+      const briefDescription = getBriefDescriptionFromContext(selectedContext);
       await addZettelToJournal(todayJournal, zettelId, noteType, briefDescription);
     }
     
@@ -55,6 +67,28 @@ async function createZettelNote(noteType, context = 'quick-capture') {
     console.error('Error creating zettel note:', error);
     logseq.UI.showMsg(`Failed to create note: ${error.message}`, 'error');
     return null;
+  }
+}
+
+async function promptForContext() {
+  try {
+    const contextOptions = getContextOptions();
+    
+    // Use Logseq's prompt for context selection
+    const selected = await logseq.UI.showPrompt({
+      title: 'Select Context',
+      message: 'Choose the context for this note:',
+      input: {
+        type: 'dropdown',
+        items: contextOptions,
+        default: 'quick-capture'
+      }
+    });
+    
+    return selected || 'quick-capture';
+  } catch (error) {
+    console.warn('Could not show context prompt:', error);
+    return 'quick-capture';
   }
 }
 

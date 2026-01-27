@@ -1,77 +1,73 @@
 export const TEMPLATES = {
   fleeting: `id:: {{id}}
 type:: fleeting
-created:: {{timestamp}}
-context:: {{context}}
-status:: draft
-tags:: #zettel #fleeting
 
-# {{id}} - Fleeting Note
+# {{date}}-{{time-no-colon}} - Quick Thought
 
+**Captured**: {{date}} {{time-no-colon}} • {{capture-device}}
 **Context**: {{context}}
-**Captured**: {{date}} {{time}}
-**Device**: {{capture-device}}
 
-## Quick Thought
+## Thought
 {{content}}
 
-## To Develop
+## To Process Later
 - [ ] Expand into permanent note
 - [ ] Find connections
-- [ ] Add references
+- [ ] Add context
 
-## Raw Capture
-{{raw-thought}}`,
+{{if-desktop}}
+**Status**: draft  
+**Tags**: #zettel #fleeting #mobile-capture
+**Created**: {{timestamp}}
+{{endif}}`,
 
   literature: `id:: {{id}}
 type:: literature
-created:: {{timestamp}}
-context:: {{context}}
-status:: draft
-tags:: #zettel #literature
 
-# {{id}} - Literature Note
+# {{date}}-{{time-no-colon}} - {{source-title}}
 
-**Source**: {{source-title}}
-**Author**: {{source-author}}
-**Read**: {{date}}
+**Source**: {{source-title}}  
+**Author**: {{source-author}}  
+**Read**: {{date}} • {{capture-device}}
 **Context**: {{context}}
 
 ## Summary
 {{summary}}
 
-## Key Quotes
+## Key Points
+{{key-points}}
+
+{{if-desktop}}
+## Quotes
 {{quotes}}
 
-## My Thoughts
+## My Thoughts  
 {{thoughts}}
 
-## Connections
-- [[ ]]
-- [[ ]]
-
 ## References
-{{references}}`,
+{{references}}
+
+**Status**: draft  
+**Tags**: #zettel #literature #mobile-capture  
+**Created**: {{timestamp}}
+{{endif}}`,
 
   permanent: `id:: {{id}}
 type:: permanent
-created:: {{timestamp}}
-context:: {{context}}
-status:: draft
-tags:: #zettel #permanent
 
-# {{id}} - Permanent Note
+# {{date}}-{{time-no-colon}} - {{concept}}
 
-**Concept**: {{concept}}
-**Developed**: {{date}} {{time}}
+**Concept**: {{concept}}  
+**Developed**: {{date}} {{time-no-colon}} • {{capture-device}}
 **Context**: {{context}}
 
-## Claim
+## Core Idea
 {{claim}}
 
-## Evidence
+## Supporting Points
 {{evidence}}
 
+{{if-desktop}}
 ## Implications
 {{implications}}
 
@@ -81,7 +77,12 @@ tags:: #zettel #permanent
 - Related to: [[ ]]
 
 ## Questions
-{{questions}}`
+{{questions}}
+
+**Status**: draft  
+**Tags**: #zettel #permanent #mobile-capture  
+**Created**: {{timestamp}}
+{{endif}}`
 };
 
 export function getTemplate(noteType) {
@@ -94,9 +95,9 @@ export function getTemplateNames() {
 
 export function getTemplateDisplayName(noteType) {
   const names = {
-    fleeting: 'Fleeting Note',
-    literature: 'Literature Note',
-    permanent: 'Permanent Note'
+    fleeting: 'Quick Thought',
+    literature: 'Reading Note',
+    permanent: 'Developed Idea'
   };
-  return names[noteType] || 'Fleeting Note';
+  return names[noteType] || 'Quick Thought';
 }
