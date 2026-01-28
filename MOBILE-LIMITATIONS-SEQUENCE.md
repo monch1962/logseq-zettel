@@ -37,18 +37,19 @@ Desktop Logseq → Use Sequence to enhance → Add metadata → Update propertie
 4. **Desktop**: Open notes in Sequence-enhanced templates
 5. **Desktop**: Populate variables and add enhanced metadata
 
-### Option 2: Static Sequence Templates on Mobile
+### Option 2: Static Consolidated Template on Mobile
 ```
-Mobile Logseq → Use Sequence templates as static files → Manual entry → Sync
+Mobile Logseq → Use consolidated template as static file → Manual entry → Sync
 Desktop Logseq → Process notes → Populate variables → Clean up
 ```
 
 **Steps:**
-1. **Mobile**: Use `templates-sequence/zettelkasten/` templates
-2. **Mobile**: Manually enter IDs (copy format: `YYYY-MM-DD-HHMMSS`)
-3. **Mobile**: Leave `{{variable}}` placeholders as-is
-4. **Sync**: Sync to desktop
-5. **Desktop**: Process with Sequence to populate variables
+1. **Mobile**: Use `templates-sequence/zettelkasten-consolidated.md` template
+2. **Mobile**: Select note type from dropdown (shows as text)
+3. **Mobile**: Manually enter IDs (copy format: `YYYY-MM-DD-HHMMSS`)
+4. **Mobile**: Leave `{{variable}}` placeholders as-is
+5. **Sync**: Sync to desktop
+6. **Desktop**: Process with Sequence to populate variables
 
 ### Option 3: Tag-Based Hybrid Workflow
 ```

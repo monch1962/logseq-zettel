@@ -334,7 +334,10 @@ query: "path:pages type:fleeting"
 2. Template selection in Logseq
 3. Template file names and locations
 
-**Solution:** Use `templates-sequence/` for Sequence templates, `templates/` for native.
+**Solution:** 
+- Use `templates-sequence/zettelkasten-consolidated.md` for Sequence templates
+- Use `templates/` for native templates
+- Consolidated template contains all note types in one file
 
 ## Mobile-Specific Considerations
 

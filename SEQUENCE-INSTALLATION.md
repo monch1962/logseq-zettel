@@ -54,23 +54,25 @@ This guide explains how to set up the **Sequence-enhanced Zettelkasten templates
 
 #### Step 2: Copy Sequence Template Files
 
-1. **Create template directory structure**:
+1. **Create template directory**:
    ```bash
    # Navigate to your Logseq graph
    cd /path/to/your/logseq-graph/
    
-   # Create Sequence template directories
-   mkdir -p templates-sequence/zettelkasten
-   mkdir -p templates-sequence/workflows
-   mkdir -p templates-sequence/variables
+   # Create Sequence template directory
+   mkdir -p templates-sequence
    ```
 
-2. **Copy template files**:
+2. **Copy consolidated template file**:
    ```bash
-   # Copy from this repository to your Logseq graph
-   cp -r templates-sequence/zettelkasten/* /path/to/your/logseq-graph/templates-sequence/zettelkasten/
-   cp -r templates-sequence/workflows/* /path/to/your/logseq-graph/templates-sequence/workflows/
-   cp -r templates-sequence/variables/* /path/to/your/logseq-graph/templates-sequence/variables/
+   # Copy the consolidated template file
+   cp templates-sequence/zettelkasten-consolidated.md /path/to/your/logseq-graph/templates-sequence/
+   
+   # Copy workflow files (optional)
+   cp -r templates-sequence/workflows/* /path/to/your/logseq-graph/templates-sequence/workflows/ 2>/dev/null || true
+   
+   # Copy variable file (optional)
+   cp templates-sequence/variables/zettel-variables.json /path/to/your/logseq-graph/templates-sequence/variables/ 2>/dev/null || true
    ```
 
 #### Step 3: Configure Sequence Variables
@@ -102,27 +104,25 @@ This guide explains how to set up the **Sequence-enhanced Zettelkasten templates
 
 #### Step 5: Create Template Shortcuts
 
-1. **Create page**: `templates-sequence/zettelkasten`
-2. **Add template links**:
+1. **Create page**: `templates-sequence`
+2. **Add template link**:
    ```markdown
    # Sequence-Enhanced Zettelkasten Templates
    
-   Enhanced templates with Sequence features:
+   Consolidated template with all note types:
    
-   ## Templates
-   - [[fleeting-sequence]] - Enhanced quick capture template
-   - [[literature-sequence]] - Enhanced reading notes template  
-   - [[permanent-sequence]] - Enhanced developed ideas template
-   
-   ## Workflows
-   - [[quick-capture-sequence]] - Multi-step capture workflow
+   ## Single Template File
+   - [[zettelkasten-consolidated]] - All templates in one file
+     - 🚀 Fleeting notes
+     - 📚 Literature notes  
+     - 🏛️ Permanent notes
+     - 📅 Enhanced daily journal
+     - 📱 Mobile daily journal
    
    ## Quick Access
-   Use these commands for quick access:
+   Use this command for quick access:
    ```
-   /sequence fleeting-sequence
-   /sequence literature-sequence
-   /sequence permanent-sequence
+   /sequence zettelkasten-consolidated
    ```
 
 ### Method 2: Hybrid Setup (Sequence + Native Templates)
@@ -192,23 +192,22 @@ For users who want to use both native and Sequence templates:
 
 ### Quick Start with Sequence
 
-**Option 1: Template Selection**
+**Option 1: Consolidated Template**
 1. Create new page in Logseq
-2. Select template from `templates-sequence/zettelkasten/`
-3. Fill enhanced template fields
-4. Save (auto-generates ID)
+2. Select `zettelkasten-consolidated` template
+3. Choose note type from dropdown (fleeting/literature/permanent/journal)
+4. Fill template fields for selected type
+5. Save (auto-generates ID)
 
 **Option 2: Workflow Sequence**
 1. Click Sequence icon in toolbar
-2. Select "Zettel Quick Capture"
+2. Select "Zettel Quick Capture" (or other workflow)
 3. Follow step-by-step prompts
 4. Review and create note
 
-**Option 3: Slash Commands**
+**Option 3: Slash Command**
 ```
-/sequence fleeting-sequence     # Enhanced fleeting note
-/sequence literature-sequence   # Enhanced literature note
-/sequence permanent-sequence    # Enhanced permanent note
+/sequence zettelkasten-consolidated     # All templates in one
 ```
 
 ### Mobile Capture Workflow (Limited)
@@ -323,9 +322,10 @@ For users who want to use both native and Sequence templates:
 3. **Alternative**: Capture basic notes on mobile, enhance later on desktop
 
 **Templates Not Showing:**
-1. **Check directory**: `templates-sequence/zettelkasten/` must exist
-2. **Check file format**: Files must be `.md` format
-3. **Check Sequence settings**: Templates must be in configured template directory
+1. **Check directory**: `templates-sequence/` must exist
+2. **Check file**: `zettelkasten-consolidated.md` must be present
+3. **Check file format**: File must be `.md` format
+4. **Check Sequence settings**: Templates must be in configured template directory
 
 **Variables Not Populating:**
 1. **Check variable import**: Variables must be imported in Sequence settings
