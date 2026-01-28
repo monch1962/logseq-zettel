@@ -1,0 +1,148 @@
+{
+  "name": "Literature Reading Capture",
+  "description": "Structured workflow for capturing insights from reading materials",
+  "version": "1.0.0",
+  "author": "Logseq Zettelkasten",
+  "steps": [
+    {
+      "id": "source-info",
+      "name": "Source Information",
+      "description": "Capture basic information about the source",
+      "template": "zettelkasten/literature-sequence",
+      "prompts": [
+        {
+          "variable": "source-type",
+          "label": "Source Type",
+          "description": "What type of source are you reading?",
+          "type": "select",
+          "options": [
+            {"value": "book", "label": "Book"},
+            {"value": "article", "label": "Article"},
+            {"value": "paper", "label": "Academic Paper"},
+            {"value": "blog", "label": "Blog Post"},
+            {"value": "video", "label": "Video"},
+            {"value": "podcast", "label": "Podcast"},
+            {"value": "course", "label": "Course Material"},
+            {"value": "other", "label": "Other"}
+          ],
+          "default": "article"
+        },
+        {
+          "variable": "title",
+          "label": "Source Title",
+          "description": "Title of the book/article/video",
+          "required": true,
+          "placeholder": "Enter the source title..."
+        },
+        {
+          "variable": "author",
+          "label": "Author/Creator",
+          "description": "Who created this content?",
+          "required": false,
+          "placeholder": "Author name (optional)"
+        }
+      ]
+    },
+    {
+      "id": "capture-insights",
+      "name": "Capture Insights",
+      "description": "What did you learn from this source?",
+      "condition": "true",
+      "prompts": [
+        {
+          "variable": "summary",
+          "label": "Summary",
+          "description": "Brief summary in your own words",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "Summarize the main ideas..."
+        },
+        {
+          "variable": "key-points",
+          "label": "Key Points",
+          "description": "List the most important points",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Bullet points of key insights (optional)"
+        },
+        {
+          "variable": "rating",
+          "label": "Quality Rating",
+          "description": "How valuable was this source?",
+          "type": "select",
+          "options": [
+            {"value": "1", "label": "⭐ - Not valuable"},
+            {"value": "2", "label": "⭐⭐ - Somewhat valuable"},
+            {"value": "3", "label": "⭐⭐⭐ - Valuable"},
+            {"value": "4", "label": "⭐⭐⭐⭐ - Very valuable"},
+            {"value": "5", "label": "⭐⭐⭐⭐⭐ - Essential"}
+          ],
+          "default": "3"
+        }
+      ]
+    },
+    {
+      "id": "add-quotes",
+      "name": "Add Quotes & Thoughts",
+      "description": "Optional: Add direct quotes and your thoughts",
+      "condition": "{{select: include-quotes: yes | no}} == 'yes'",
+      "prompts": [
+        {
+          "variable": "quotes",
+          "label": "Key Quotes",
+          "description": "Direct quotes worth remembering",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Paste important quotes here..."
+        },
+        {
+          "variable": "thoughts",
+          "label": "Your Thoughts",
+          "description": "Your reactions and connections",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "What does this make you think about?"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "name": "Make Connections",
+      "description": "Connect this to existing knowledge",
+      "condition": "{{select: make-connections: yes | no}} == 'yes'",
+      "prompts": [
+        {
+          "variable": "connects-to",
+          "label": "Connects To",
+          "description": "Link to related notes or concepts",
+          "required": false,
+          "placeholder": "[[note-id]] or concept name"
+        },
+        {
+          "variable": "tags",
+          "label": "Tags",
+          "description": "Keywords for organization",
+          "required": false,
+          "placeholder": "topic1, topic2, topic3"
+        }
+      ]
+    },
+    {
+      "id": "finalize",
+      "name": "Complete Capture",
+      "description": "Finish the literature note",
+      "action": "message",
+      "config": {
+        "message": "Literature note captured successfully! ID: {{zettel-id}}\n\nSource: {{title}}\nRating: {{rating}}/5 stars",
+        "type": "success"
+      }
+    }
+  ],
+  "metadata": {
+    "mobile-optimized": true,
+    "estimated-time": "2-5 minutes",
+    "tags": ["zettelkasten", "literature", "reading", "capture"],
+    "category": "Zettelkasten",
+    "workflow-type": "structured-capture"
+  }
+}

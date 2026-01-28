@@ -1,0 +1,36 @@
+{
+  "variables": {
+    "zettel-id": {
+      "type": "computed",
+      "description": "Auto-generated Zettelkasten ID in colon-free format",
+      "computation": "return `${date('YYYY-MM-DD')}-${time('HHmm')}`;"
+    },
+    "device": {
+      "type": "computed",
+      "description": "Detect if running on mobile or desktop",
+      "computation": "return window.logseq?.App?.isMobile?.() ? 'mobile' : 'desktop';"
+    },
+    "context-presets": {
+      "type": "preset",
+      "description": "Common context options for Zettelkasten notes",
+      "options": [
+        "quick-capture",
+        "reading",
+        "meeting", 
+        "walking",
+        "research",
+        "idea",
+        "project",
+        "personal"
+      ]
+    }
+  },
+  "defaults": {
+    "status": "draft",
+    "priority": "medium",
+    "include-advanced": "no",
+    "include-quotes": "yes",
+    "include-thoughts": "yes",
+    "include-implications": "yes"
+  }
+}
