@@ -4,6 +4,7 @@ A mobile-first template system for Zettelkasten note capture in Logseq, designed
 
 ## Features
 
+### Core Features (Native Templates):
 - **Three Template Types**: Fleeting, Literature, and Permanent notes
 - **Colon-Free ID Generation**: `YYYY-MM-DD-HHMMSS` format (no colons in filenames)
 - **Query-Based Journal Integration**: Auto-lists notes in daily journals using Logseq queries
@@ -13,6 +14,14 @@ A mobile-first template system for Zettelkasten note capture in Logseq, designed
 - **Conditional Sections**: Desktop-only content hidden on mobile
 - **Obsidian Compatible**: Standard Markdown format for easy export
 - **Cross-Platform**: Works on iOS, Android, and desktop Logseq without plugins
+
+### Enhanced Features (Sequence Templates):
+- **Consolidated Template File**: All templates in one file with dropdown selection
+- **Enhanced UI/UX**: Labeled inputs, better dropdowns, conditional logic (desktop only)
+- **Custom Variables**: Auto-ID generation, device detection, context presets
+- **Workflow Sequences**: Guided note capture and development workflows
+- **Additional Metadata**: Priority, rating, importance, confidence levels
+- **Full Backward Compatibility**: Works alongside native templates
 
 ## Installation
 
@@ -37,11 +46,50 @@ For desktop users who can use plugins:
 2. **Place in Logseq templates directory**: `templates/zettelkasten/`
 3. **Configure Logseq** for Markdown format and `YYYY-MM-DD` date format
 
+### Method 4: Sequence-Enhanced Installation (Desktop Only)
+For users who want enhanced UI/UX with the Sequence plugin:
+1. **Install Sequence plugin** from Logseq Marketplace
+2. **Copy `templates-sequence/` directory** to your graph
+3. **Import variables and workflows** in Sequence settings
+4. **Use consolidated template**: `/sequence zettelkasten-consolidated`
+
+*See [SEQUENCE-INSTALLATION.md](SEQUENCE-INSTALLATION.md) for detailed setup instructions.*
+
 ## System Requirements
 - Logseq v0.9.0 or higher
 - Mobile Logseq (no plugin support required)
 - Syncthing (recommended for mobile-desktop sync)
 - Obsidian (optional, for final note repository)
+
+## Sequence-Enhanced Templates (Experimental)
+
+**New!** Enhanced templates using the [Sequence plugin](https://github.com/cannibalox/logseq-sequence) for improved UI/UX while maintaining full backward compatibility.
+
+### Key Enhancements:
+- **Consolidated Template**: All 5 template types in one file (`zettelkasten-consolidated.md`)
+- **Enhanced UI/UX**: Labeled inputs, better dropdowns, conditional logic
+- **Custom Variables**: Auto-ID generation (`{{zettel-id}}`), device detection (`{{device}}`)
+- **Workflow Sequences**: Guided note capture and development workflows
+- **Full Backward Compatibility**: Works alongside native templates
+
+### Important Notes:
+- **Desktop Only**: Sequence plugin works on desktop Logseq only
+- **Mobile Limitations**: No plugin support on mobile - use native templates or static files
+- **Experimental Feature**: Currently in testing phase
+
+### Quick Start with Sequence:
+1. **Install Sequence plugin** on desktop Logseq
+2. **Copy `templates-sequence/` directory** to your graph
+3. **Use consolidated template**: `/sequence zettelkasten-consolidated`
+4. **Select note type** from dropdown (fleeting/literature/permanent/journal)
+
+### Documentation:
+- [Sequence Installation Guide](SEQUENCE-INSTALLATION.md) - Complete setup instructions
+- [Compatibility Guide](COMPATIBILITY-SEQUENCE.md) - Backward compatibility details
+- [Mobile Limitations](MOBILE-LIMITATIONS-SEQUENCE.md) - Mobile workflow strategies
+- [Testing Plan](TESTING-PLAN-SEQUENCE.md) - Current testing status
+
+*Note: Sequence templates are an experimental enhancement. Native templates remain fully supported.*
 
 ## Quick Start
 
@@ -262,12 +310,26 @@ The three default templates can be modified to suit your workflow:
 
 ```
 logseq-zettel/
-├── templates/                    # Standalone template files
+├── templates/                    # Native template files (mobile & desktop)
 │   ├── zettelkasten/
 │   │   ├── fleeting.md          # Fleeting note template
 │   │   ├── literature.md        # Literature note template
 │   │   └── permanent.md         # Permanent note template
 │   └── daily-journal-with-zettels.md  # Journal template
+├── templates-sequence/           # Sequence-enhanced templates (experimental)
+│   ├── zettelkasten-consolidated.md    # All templates in one file
+│   ├── zettelkasten/            # Individual Sequence templates
+│   │   ├── fleeting-sequence.md # Enhanced fleeting template
+│   │   ├── literature-sequence.md # Enhanced literature template
+│   │   └── permanent-sequence.md # Enhanced permanent template
+│   ├── workflows/               # Sequence workflow files
+│   │   ├── quick-capture.json   # Quick capture workflow
+│   │   ├── literature-reading.json # Reading workflow
+│   │   └── permanent-development.json # Development workflow
+│   ├── variables/               # Custom Sequence variables
+│   │   └── zettel-variables.json # {{zettel-id}}, {{device}}, etc.
+│   ├── daily-journal-enhanced.md # Enhanced daily journal
+│   └── daily-journal-mobile.md  # Mobile-optimized journal
 ├── src/                         # Plugin source code (desktop only)
 │   ├── utils.js                 # Utility functions
 │   ├── templates.js             # Template definitions
@@ -277,7 +339,12 @@ logseq-zettel/
 ├── icons/                       # Plugin icons (desktop only)
 ├── dist/                        # Built plugin (desktop only)
 ├── README.md                    # This file
-├── TEMPLATE-INSTALLATION.md     # Detailed template setup guide
+├── SEQUENCE-INSTALLATION.md     # Sequence template setup guide
+├── COMPATIBILITY-SEQUENCE.md    # Sequence compatibility guide
+├── MOBILE-LIMITATIONS-SEQUENCE.md # Mobile limitations guide
+├── TESTING-PLAN-SEQUENCE.md     # Sequence testing plan
+├── RELEASE-STRATEGY-SEQUENCE.md # Release strategy
+├── TEMPLATE-INSTALLATION.md     # Native template setup guide
 ├── QUICKSTART-TEMPLATES.md      # 5-minute quick start
 ├── QUICKSTART.md                # Plugin quick start (desktop)
 ├── TEMPLATES.md                 # Template documentation
@@ -302,10 +369,19 @@ npm run dev     # Development mode with hot reload
 ## Support & Resources
 
 ### Documentation
+
+**Native Templates:**
 - `TEMPLATE-INSTALLATION.md` - Detailed template setup guide
 - `QUICKSTART-TEMPLATES.md` - 5-minute quick start
 - `TEMPLATES.md` - Template reference and examples
 - `examples/` - Sample notes and workflows
+
+**Sequence-Enhanced Templates (Experimental):**
+- `SEQUENCE-INSTALLATION.md` - Sequence template setup guide
+- `COMPATIBILITY-SEQUENCE.md` - Backward compatibility guide
+- `MOBILE-LIMITATIONS-SEQUENCE.md` - Mobile limitations and workflows
+- `TESTING-PLAN-SEQUENCE.md` - Current testing status
+- `RELEASE-STRATEGY-SEQUENCE.md` - Release strategy
 
 ### Community
 - **Logseq Discord**: #templates channel for template discussions
@@ -316,6 +392,7 @@ npm run dev     # Development mode with hot reload
 - **Check Repository**: Regular template updates and improvements
 - **Backup First**: Always backup your templates before updating
 - **Test Changes**: Test new templates in separate graph first
+- **Sequence Templates**: Currently experimental - provide feedback via GitHub Issues
 
 ## License
 
