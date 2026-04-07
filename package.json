@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@logseq/libs": "^0.2.12",
-    "vite": "^7.3.1"
+    "vite": "^7.3.2"
   },
   "dependencies": {}
 }
